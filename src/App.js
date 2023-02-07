@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Profile from "./Profile";
+import Login from "./Login";
+import { LoginContext } from "./LoginContext/LonginContext";
+import "./index.css"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+
+export default function App() {
+  // Using function method
+  // const changeColour = () => {
+  //   setColour((state) => (state === "dark" ? "light" : "dark"))
+  // }
+
+  function changeColour() {
+    setColour((state) => (state === "dark" ? "light" : "dark"))
+  }
+  const [username, setuserName] = useState("")
+  const [profile, setProfile] = useState(false)
+  const [email, setEmail] = useState("")
+  const [balance, setBalance] = useState(35.00)
+  const [colour,setColour] = useState("dark")
+  return(
+    <LoginContext.Provider value={
+      {username,setuserName,email, balance,
+        setEmail,profile,setProfile,
+        changeColour,colour
+      }}>
+       <div>
+        {profile ? <Profile /> : <Login />}
+        {/* <Profile /> */}
+      </div>
+    </LoginContext.Provider>
+  )
+} 
